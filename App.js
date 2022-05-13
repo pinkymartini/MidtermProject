@@ -11,15 +11,17 @@ const App = () => {
 
 
   return (
+
+    <View style ={{flex: 1,padding:5}} >
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Posts" component={PostStackScreen} />
-        <Tab.Screen name="Users" component={UserStackScreen} />
+        <Tab.Screen options={{headerShown: false}} name="Posts" component={PostStackScreen} />
+        <Tab.Screen options={{headerShown: false}} name="Users" component={UserStackScreen} />
       </Tab.Navigator>
 
     </NavigationContainer>
 
-
+    </View>
 
   )
 }
