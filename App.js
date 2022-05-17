@@ -4,6 +4,7 @@ import React from 'react'
 import { View, Text, FlatList, SafeAreaView } from 'react-native'
 import PostStackScreen from './src/tabNavigation/PostStackScreen'
 import UserStackScreen from './src/tabNavigation/UserStackScreen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const Tab = createBottomTabNavigator();
 
@@ -11,18 +12,33 @@ const App = () => {
 
 
   return (
-
-    <View style ={{flex: 1,padding:5}} >
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen options={{headerShown: false}} name="Posts" component={PostStackScreen} />
-        <Tab.Screen options={{headerShown: false}} name="Users" component={UserStackScreen} />
+        <Tab.Screen 
+          style= {{flex:1}} 
+          options={{
+            headerShown: false,
+            tabBarIcon: () => (<MaterialCommunityIcons name="post" size={35} ></MaterialCommunityIcons>
+            ),
+            tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
+            // title:'dsa'
+          
+          
+          }} 
+          name="Posts" 
+          component={PostStackScreen} />
+
+        <Tab.Screen style= {{flex:1 }} options={{
+          headerShown: false,
+          tabBarIcon: () => (<MaterialCommunityIcons name="account-group" size={35} ></MaterialCommunityIcons>
+          ),
+          tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
+      
+          }} name="Users" component={UserStackScreen} />
       </Tab.Navigator>
 
     </NavigationContainer>
-
-    </View>
-
+    
   )
 }
 

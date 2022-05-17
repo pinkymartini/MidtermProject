@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { API_URL } from '../env/config';
 import { NavigationContainer } from '@react-navigation/native';
-
+import { PostDetailStyle } from '../stylings/TextStyles';
+import { HeaderStyle } from '../stylings/ScreenStyles';
 
 const PostStack = createNativeStackNavigator();
 
@@ -11,8 +12,8 @@ const PostStackScreen = ({navigation}) => {
   return (
     
       <PostStack.Navigator>
-      <PostStack.Screen name="Posts" component={PostListScreen} />
-      <PostStack.Screen options={({ route }) => ({ title: route.params.postTitle })} name="PostDetail" component={PostDetailScreen} />
+      <PostStack.Screen name="Posts" component={PostListScreen} options={HeaderStyle}/>
+      <PostStack.Screen name="PostDetail" component={PostDetailScreen} options={({route})=>({title: route.params.postTitle,...HeaderStyle})} />
       </PostStack.Navigator>
     )
   
@@ -41,14 +42,15 @@ const PostListScreen = ({navigation}) => {
   const renderPosts = ({item})=>{
     return <>
     <TouchableOpacity onPress={()=>goToDetail(item.id, item.title)}>
-      <Text style ={{fontSize:20, fontWeight:'bold', color:'tomato'}}>{item.title}</Text>
+      <Text style ={{fontSize:20, fontWeight:'bold', color:'#36454F', margin:15}}>{item.title}</Text>
+      
       </TouchableOpacity>
     </>
   }
 
   return (
     loading == true ? <ActivityIndicator size="small" color="#0000ff" /> :<>
-    <View>
+    <View style = {{backgroundColor:'white'}}>
       <FlatList
       data={posts}
       renderItem={renderPosts}
@@ -80,11 +82,13 @@ const PostDetailScreen = ({route,navigation}) => {
 
   return (
     loading == true ? <ActivityIndicator size="small" color="#0000ff"  /> :<>
-    <View>
-      <Text>USER ID: {detail.userId}</Text>
-      <Text>ID: {detail.id}</Text>
-      <Text>TITLE: {detail.title}</Text>
-      <Text>BODY: {detail.body}</Text>
+    <View style= {{flex:1,backgroundColor:'#e3b1d0'}}>
+      <View style={{margin:25}}>
+      <Text style= {PostDetailStyle}>User ID: <Text style= {{color:'#36454F'}}>{detail.userId}</Text></Text>
+      <Text style= {PostDetailStyle}>Post ID: <Text style= {{color:'#36454F'}}>{detail.id}</Text></Text>
+      <Text style= {PostDetailStyle}>Title: <Text style= {{color:'#36454F'}}>{detail.title}</Text></Text>
+      <Text style= {PostDetailStyle}>Body: <Text style= {{color:'#36454F'}}>{detail.body}</Text></Text>
+      </View>
     </View>
     </>
   )

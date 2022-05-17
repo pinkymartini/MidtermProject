@@ -1,16 +1,23 @@
-import { View, Text,FlatList,TouchableOpacity,ActivityIndicator } from 'react-native'
+import { View, Text,FlatList,TouchableOpacity,ActivityIndicator,StyleSheet } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react' 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { API_URL } from '../env/config';
 import { NavigationContainer } from '@react-navigation/native';
+import MapView from 'react-native-maps';
+import { HeaderStyle } from '../stylings/ScreenStyles';
+import { UserDetailStyle } from '../stylings/TextStyles';
+
+
+
+
 
 const UserStack = createNativeStackNavigator();
 
 const UserStackScreen = ({navigation}) => {
   return (
     <UserStack.Navigator>
-      <UserStack.Screen name= "User"component={UserListScreen}/>
-      <UserStack.Screen options={({ route }) => ({ title: route.params.userName })} name= "UserDetail"component={UserDetailScreen}/>
+      <UserStack.Screen  name= "Users" component={UserListScreen} options={HeaderStyle}/>
+      <UserStack.Screen  name= "UserDetail"component={UserDetailScreen} options={({ route }) => ({ title: route.params.userName,...HeaderStyle})}/>
     </UserStack.Navigator>
   )
 }
@@ -36,14 +43,17 @@ const UserListScreen = ({navigation}) => {
 
   const renderUsers =({item}) =>{
 
-    return <TouchableOpacity onPress={()=>goToDetail(item.id, item.name)}>
-    <Text style={{fontSize:20, fontWeight:'bold'}}>Name: {item.name}</Text>
+    return <>
+    <TouchableOpacity onPress={()=>goToDetail(item.id, item.name)}>
+    <Text style={{fontSize:20, fontWeight:'bold',color:'#36454F',margin:14}}>{item.name}
+    </Text>
     </TouchableOpacity>
+    </>
   }
 
   return (
     loading == true ? <ActivityIndicator size="small" color="#0000ff" /> :<>
-    <View>
+    <View style = {{flex:1, padding:20}}>
       <FlatList
       data={users}
       renderItem={renderUsers}
@@ -67,20 +77,55 @@ const UserDetailScreen = ({route,navigation}) => {
     .then((data)=>{
         setDetail(data);
         setLoading(false);
+        
     })
 
 }, [])
 
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
+
+
+
   return (
+    
     loading == true ? <ActivityIndicator size="small" color="#0000ff"  /> :<>
-    <View>
-      <Text>ID: {detail.id}</Text>
-      <Text>Name: {detail.name}</Text>
-      <Text>Addres: {detail.address.street}</Text>
-      <Text>phone: {detail.phone}</Text>
+    <View style={{flex:1,padding:20,backgroundColor:'#e3b1d0'}}>
+
+    <View style ={{flex: 1,padding:20}} >
+
+      <View style={{flex:1, backgroundColor:'white',alignItems:'center'}}>
+      <Text style= {UserDetailStyle}>ID: <Text style={{color:'brown'}}>{detail.id}</Text></Text>
+      <Text style= {UserDetailStyle}>Name:<Text style={{color:'brown'}}> {detail.name}</Text></Text>
+      <Text style= {UserDetailStyle}>Addres:<Text style={{color:'brown'}}> {detail.address.street}</Text></Text>
+      <Text style= {UserDetailStyle}>Phone:<Text style={{color:'brown'}}> {detail.phone}</Text></Text>
+      </View>
+
+      </View>
+
+      <View style={{flex: 1,padding:20}}>
+      <MapView style={styles.map}
+        initialRegion={{
+        latitude: Number(detail.address.geo.lat) ,
+        longitude: Number(detail.address.geo.lng),
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+        }}
+        />
+        </View>
+        
     </View>
     </>
   )
+  
 }
 
 export default UserStackScreen
