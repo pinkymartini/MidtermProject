@@ -23,7 +23,7 @@ const App = () => {
             tabBarIcon: () => (<MaterialCommunityIcons name="post" size={35} ></MaterialCommunityIcons>
             ),
             tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
-            // title:'dsa'
+            
           
           
           }} 
@@ -42,10 +42,10 @@ const App = () => {
           style= {{flex:1}} 
           options={{
             headerShown: false,
-            tabBarIcon: () => (<MaterialCommunityIcons name="post" size={35} ></MaterialCommunityIcons>
+            tabBarIcon: () => (<MaterialCommunityIcons name="camera-plus" size={35} ></MaterialCommunityIcons>
             ),
             tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
-            // title:'dsa'
+          
           
           
           }} 
@@ -56,10 +56,10 @@ const App = () => {
           style= {{flex:1}} 
           options={{
             headerShown: false,
-            tabBarIcon: () => (<MaterialCommunityIcons name="post" size={35} ></MaterialCommunityIcons>
+            tabBarIcon: () => (<MaterialCommunityIcons name="check" size={35} ></MaterialCommunityIcons>
             ),
             tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
-            // title:'dsa'
+           
           
           
           }} 

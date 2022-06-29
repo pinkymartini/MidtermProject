@@ -92,7 +92,7 @@ const PostDetailScreen = ({route,navigation}) => {
   const renderComments = ({item})=>{
     return <>
    
-      <Text style ={{fontSize:20, fontWeight:'bold', color:'#36454F', margin:15}}>{item.body}</Text>
+      <Text style ={{fontSize:20, fontWeight:'bold', color:'purple', margin:15}}>{item.body}</Text>
       
   
     </>
@@ -105,11 +105,11 @@ const PostDetailScreen = ({route,navigation}) => {
     loading == true ? <ActivityIndicator size="small" color="#0000ff"  /> :<>
 
 
-    <View style= {{flex:1,backgroundColor:'#e3b1d0', padding:20}}>
+    <View style= {{flex:1,backgroundColor:'#e3b1d0', padding:20,}}>
 
      
      
-      <ScrollView style={{padding:5,flex:2,backgroundColor:'white',margin:10}}>
+      <ScrollView style={{padding:5,flex:2,backgroundColor:'white',margin:10,borderRadius:10}}>
 
       <Text style= {PostDetailStyle}>User ID: <Text style= {{color:'#36454F'}}>{detail.userId}</Text></Text>
       <Text style= {PostDetailStyle}>Post ID: <Text style= {{color:'#36454F'}}>{detail.id}</Text></Text>
@@ -118,7 +118,13 @@ const PostDetailScreen = ({route,navigation}) => {
       </ScrollView>
       
       
-      <View style={{padding:5,flex:1,backgroundColor:'cyan'}}>
+      <View style={{padding:5,flex:1,backgroundColor:'cyan',borderRadius:10}}>
+
+      
+      <Text style= {[PostDetailStyle, {marginBottom:0}]}>Comments</Text>
+      
+
+      
       <FlatList
       data={comments}
       renderItem={renderComments}

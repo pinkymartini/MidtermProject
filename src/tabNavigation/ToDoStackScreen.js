@@ -12,7 +12,7 @@ const ToDoStackScreen = ({navigation}) => {
     return (
       
         <TodoStack.Navigator>
-        <TodoStack.Screen name="ToDoList" component={ToDoListScreen} options={HeaderStyle}/>
+        <TodoStack.Screen name="ToDoList" component={ToDoListScreen} options={({route})=>({title: "To Do List", ...HeaderStyle})}/>
         
         </TodoStack.Navigator>
       )

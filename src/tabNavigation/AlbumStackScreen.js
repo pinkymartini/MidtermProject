@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
       height: 50,
     },
     logo: {
-      width: 66,
-      height: 58,
+      width: 100,
+      height: 100,
     },
   });
 
@@ -96,15 +96,22 @@ const PhotoListScreen = ({route,navigation}) => {
     const renderPhotos = ({item})=>{
         return <>
         
+        <View style= {{padding:10, flex: 1, alignItems:'center',  }}>
+
+          <View style= {{padding:3, flex: 1, alignItems:'center', backgroundColor:'grey',borderRadius:10 }}>
           <Text style ={{fontSize:20, fontWeight:'bold', color:'#36454F', margin:15}}>{item.title}</Text>
-          
-          <View style={{alignItems: 'center'}}>
+
+          <View style= {{padding:5, flex: 1, alignItems:'center' }}>
           <Image
             style={styles.logo}
             source={{
                 uri: item.url,
             }}
             />
+
+            </View>
+            </View>
+            
             </View>
           
         </>
@@ -114,7 +121,7 @@ const PhotoListScreen = ({route,navigation}) => {
   
     return (
       loading == true ? <ActivityIndicator size="small" color="#0000ff" /> :<>
-      <View style = {{backgroundColor:'white'}}>
+      <View style = {{flex: 1, backgroundColor:'white'}}>
         <FlatList
         data={photos}
         renderItem={renderPhotos}

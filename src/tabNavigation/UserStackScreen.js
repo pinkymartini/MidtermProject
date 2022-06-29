@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
     loading == true ? <ActivityIndicator size="small" color="#0000ff"  /> :<>
     <View style={{flex:1,padding:20,backgroundColor:'#e3b1d0'}}>
 
-    <View style ={{flex: 1,padding:20}} >
+    <View style ={{flex: 1,padding:20,}} >
 
-      <View style={{flex:1, backgroundColor:'white',alignItems:'center'}}>
+      <View style={{flex:1, backgroundColor:'white',alignItems:'center',borderRadius:10}}>
       <Text style= {UserDetailStyle}>ID: <Text style={{color:'brown'}}>{detail.id}</Text></Text>
       <Text style= {UserDetailStyle}>Name:<Text style={{color:'brown'}}> {detail.name}</Text></Text>
       <Text style= {UserDetailStyle}>Addres:<Text style={{color:'brown'}}> {detail.address.street}</Text></Text>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
 
       </View>
 
-      <View style={{flex: 1,padding:20}}>
+      <View style={{flex: 1,padding:20,borderRadius:10}}>
       <MapView style={styles.map}
         initialRegion={{
         latitude: Number(detail.address.geo.lat) ,
