@@ -5,6 +5,8 @@ import { View, Text, FlatList, SafeAreaView } from 'react-native'
 import PostStackScreen from './src/tabNavigation/PostStackScreen'
 import UserStackScreen from './src/tabNavigation/UserStackScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import AlbumStackScreen from './src/tabNavigation/AlbumStackScreen';
+import ToDoStackScreen from './src/tabNavigation/ToDoStackScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,6 +37,36 @@ const App = () => {
           tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
       
           }} name="Users" component={UserStackScreen} />
+
+          <Tab.Screen 
+          style= {{flex:1}} 
+          options={{
+            headerShown: false,
+            tabBarIcon: () => (<MaterialCommunityIcons name="post" size={35} ></MaterialCommunityIcons>
+            ),
+            tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
+            // title:'dsa'
+          
+          
+          }} 
+          name="Albums" 
+          component={AlbumStackScreen} />
+
+          <Tab.Screen 
+          style= {{flex:1}} 
+          options={{
+            headerShown: false,
+            tabBarIcon: () => (<MaterialCommunityIcons name="post" size={35} ></MaterialCommunityIcons>
+            ),
+            tabBarLabelStyle:{fontWeight:'bold',fontSize:14},
+            // title:'dsa'
+          
+          
+          }} 
+          name="To Do's" 
+          component={ToDoStackScreen} />
+
+
       </Tab.Navigator>
 
     </NavigationContainer>

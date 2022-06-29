@@ -1,4 +1,4 @@
-import { View, Text,FlatList,TouchableOpacity,ActivityIndicator } from 'react-native'
+import { View, Text,FlatList,TouchableOpacity,ActivityIndicator,ScrollView } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react' 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { API_URL } from '../env/config';
@@ -67,6 +67,7 @@ const PostDetailScreen = ({route,navigation}) => {
   const {postID} = route.params;
   const [detail, setDetail] = useState({})
   const [loading, setLoading] = useState(true)
+  const [comments, setCommments] = useState([])
 
 
   useEffect(() => {
@@ -76,20 +77,60 @@ const PostDetailScreen = ({route,navigation}) => {
       setDetail(data);
       setLoading(false);
   })
-   
   }, [])
+
+  useEffect(() => {
+    fetch(API_URL+"posts/"+postID+"/comments")
+  .then(res=>res.json())
+  .then((data)=>{
+      setCommments(data);
+      console.log(data);
+      //setLoading(false);
+  })
+  }, [])
+
+  const renderComments = ({item})=>{
+    return <>
+   
+      <Text style ={{fontSize:20, fontWeight:'bold', color:'#36454F', margin:15}}>{item.body}</Text>
+      
+  
+    </>
+  }
+
+  
 
 
   return (
     loading == true ? <ActivityIndicator size="small" color="#0000ff"  /> :<>
-    <View style= {{flex:1,backgroundColor:'#e3b1d0'}}>
-      <View style={{margin:25}}>
+
+
+    <View style= {{flex:1,backgroundColor:'#e3b1d0', padding:20}}>
+
+     
+     
+      <ScrollView style={{padding:5,flex:2,backgroundColor:'white',margin:10}}>
+
       <Text style= {PostDetailStyle}>User ID: <Text style= {{color:'#36454F'}}>{detail.userId}</Text></Text>
       <Text style= {PostDetailStyle}>Post ID: <Text style= {{color:'#36454F'}}>{detail.id}</Text></Text>
       <Text style= {PostDetailStyle}>Title: <Text style= {{color:'#36454F'}}>{detail.title}</Text></Text>
       <Text style= {PostDetailStyle}>Body: <Text style= {{color:'#36454F'}}>{detail.body}</Text></Text>
+      </ScrollView>
+      
+      
+      <View style={{padding:5,flex:1,backgroundColor:'cyan'}}>
+      <FlatList
+      data={comments}
+      renderItem={renderComments}
+      > 
+      </FlatList>
       </View>
-    </View>
+
+      </View>
+
+
+
+    
     </>
   )
 }
